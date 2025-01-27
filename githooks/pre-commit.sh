@@ -3,6 +3,7 @@
 echo "Running pre-commit hooks..."
 
 # Run the test script
+cd ..
 ./test.sh
 
 # Store the exit code

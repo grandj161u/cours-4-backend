@@ -3,6 +3,7 @@
 echo "Running pre-push hooks..."
 
 # Run the test script
+cd ..
 ./test.sh
 
 # Store the exit code
