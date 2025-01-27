@@ -11,6 +11,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Faker;
 
 #[AsCommand(
     name: 'app:add-data',
@@ -26,31 +27,26 @@ class AddDataCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $batiment1 = new Batiment();
-        $batiment1->setAdress('123 Main Street');
+        $faker = Faker\Factory::create();
 
-        $batiment2 = new Batiment();
-        $batiment2->setAdress('456 Park Avenue');
+        for ($i = 0; $i < 10; $i++) {
+            $batiment = new Batiment();
+            $batiment->setAdress($faker->address);
+            $this->entityManager->persist($batiment);
 
-        $person1 = new Person();
-        $person1->setName('John');
-        $person1->setLastName('Doe');
-        $person1->setAdress('123 Main Street');
-        $person1->setBatiment($batiment1);
+            for ($j = 0; $j < 10; $j++) {
+                $person = new Person();
+                $person->setName($faker->firstName);
+                $person->setLastName($faker->lastName);
+                $person->setAdress($faker->address);
+                $person->setBatiment($batiment);
+                $this->entityManager->persist($person);
+            }
+        }
 
-        $person2 = new Person();
-        $person2->setName('Jane');
-        $person2->setLastName('Smith');
-        $person2->setAdress('456 Park Avenue');
-        $person2->setBatiment($batiment2);
-
-        $this->entityManager->persist($batiment1);
-        $this->entityManager->persist($batiment2);
-        $this->entityManager->persist($person1);
-        $this->entityManager->persist($person2);
         $this->entityManager->flush();
 
-        $output->writeln('Simple data has been added to the database.');
+
 
         return Command::SUCCESS;
     }

@@ -20,8 +20,8 @@ Listes des points attendu:
 - [X] script bash qui execute tout les test
 
 Listes des points bonus
-- [ ] La commande d'ajout de données utilise FakerPHP
-- [ ] Ajouter des test unitaire
+- [X] La commande d'ajout de données utilise FakerPHP
+- [X] Ajouter des test unitaire
 - [ ] un dossier Githook, avec un precommit et prepush qui execute tout les tests
 
 Listes des point bonus si vous avez le projet sur github
