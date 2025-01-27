@@ -1,9 +1,8 @@
 #!/bin/bash
 
-echo "Running pre-commit hooks..."
+echo "Running pre-push hooks..."
 
 # Run the test script
-cd ..
 ./test.sh
 
 # Store the exit code

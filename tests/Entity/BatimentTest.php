@@ -11,7 +11,7 @@ class BatimentTest extends TestCase
     public function testBatiment(): void
     {
         $batiment = new Batiment();
-        $person = new Person("John", "Doe", "5 rue de la paix");
+        $person = new Person();
         $batiment->setAdress('5 rue de la paix');
         $batiment->addPerson($person);
         $this->assertInstanceOf(Person::class, $batiment->getPerson()->first());
