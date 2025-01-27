@@ -1,4 +1,5 @@
 <?php
+
 // src/Command/AddDataCommand.php
 
 namespace App\Command;
