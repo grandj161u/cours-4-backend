@@ -1,12 +1,24 @@
 #!/bin/bash
 
-echo "Running pre-push hooks..."
+# Colors for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
-# Run the test script
-./test.sh
+echo -e "${GREEN}Running pre-push hooks...${NC}"
 
-# Store the exit code
+# Run all tests in sequence and capture their exit status
+docker compose run --rm -T php vendor/bin/phpcs && \
+docker compose run --rm -T php vendor/bin/phpstan analyse && \
+docker compose run --rm -T php bin/phpunit
+
+# Store the exit code from the last command that failed (or 0 if all succeeded)
 EXIT_CODE=$?
 
-# Exit with the test script's exit code
+if [ $EXIT_CODE -eq 0 ]; then
+    echo -e "\n${GREEN}All pre-push checks passed!${NC}"
+else
+    echo -e "\n${RED}Pre-push checks failed!${NC}"
+fi
+
 exit $EXIT_CODE
